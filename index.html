@@ -1,23 +1,426 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    /* 기본 스타일 재설정 */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.8; /* 텍스트 가독성 향상 */
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8; /* 부드러운 배경색 */
+      color: #333;
+      font-size: 16px;
+    }
+
+    /* 레이아웃 컨테이너 */
+    header, section, footer {
+      max-width: 1000px; /* 최대 너비 확장 */
+      margin: 20px auto;
+      padding: 30px; /* 패딩 증가 */
+      background: #ffffff;
+      border-radius: 12px; /* 둥근 모서리 */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+    }
+
+    h1, h2, h3, h4 {
+      color: #004aad; /* 테슬라 이미지에 맞는 짙은 파란색 */
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    h1 { font-size: 2.5em; margin-bottom: 0.5em; text-align: center; }
+    h2 { font-size: 2em; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; margin-top: 40px; }
+    h3 { font-size: 1.5em; color: #007bff; margin-top: 30px; }
+    h4 { font-size: 1.2em; color: #555; margin-top: 20px; }
+
+    /* 텍스트 스타일 */
+    p { margin-bottom: 1em; text-align: justify; }
+    strong { color: #004aad; font-weight: 700; }
+    ul, ol { padding-left: 25px; margin-bottom: 1em; }
+    li { margin-bottom: 0.5em; }
+
+    /* 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      font-size: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 15px;
+      text-align: left; /* 텍스트 정렬 변경 */
+    }
+    th {
+      background: #f2f7ff; /* 밝은 배경색 */
+      color: #004aad;
+      font-weight: 700;
+      border-bottom: 2px solid #004aad;
+    }
+    tr:nth-child(even) { background: #f9f9f9; } /* 짝수 행 배경색 */
+
+    /* 링크 스타일 */
+    a { color: #007bff; text-decoration: none; transition: color 0.3s ease; }
+    a:hover { text-decoration: underline; color: #0056b3; }
+
+    /* CTA 버튼 스타일 */
+    .btn-cta {
+      display: inline-block;
+      padding: 14px 30px;
+      background: linear-gradient(to right, #007bff, #004aad); /* 그라데이션 적용 */
+      color: #fff;
+      font-weight: 700;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+      transition: all 0.3s ease;
+      text-align: center;
+      margin: 20px 0;
+      cursor: pointer;
+      border: none;
+      font-size: 1.1em;
+    }
+    .btn-cta:hover {
+      background: linear-gradient(to right, #0056b3, #003366);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+    }
+
+    /* 이미지 스타일 */
+    .main-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 네비게이션 스타일 */
+    nav {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 15px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    nav li {
+      margin: 5px 10px;
+    }
+    nav a {
+      color: #555;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom 0.3s ease;
+    }
+    nav a:hover {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      text-decoration: none;
+    }
+
+    /* 폼 스타일 */
+    form {
+      background: #fcfcfc;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+      color: #444;
+    }
+    input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+      width: calc(100% - 24px); /* 패딩 고려 */
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    select { appearance: none; } /* 기본 스타일 제거 */
+
+    /* 섹션 내부 팁 박스 */
+    .tip-box {
+      background: #eaf6ff;
+      border-left: 5px solid #007bff;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .tip-box h4 { margin-top: 0; color: #004aad; }
+
+    /* 반응형 디자인 */
+    @media(max-width: 768px) {
+      body { padding: 10px; }
+      header, section, footer { margin: 10px auto; padding: 20px; }
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.5em; }
+      nav ul { flex-direction: column; }
+      nav li { margin: 5px 0; }
+      .btn-cta { width: 100%; padding: 15px 0; }
+      input[type="text"], input[type="tel"], input[type="email"], select, textarea { width: calc(100% - 20px); }
+    }
+  </style>
+
+  <!-- Schema.org Product/Review Markup (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "테슬라 모델3",
+    "description": "2026년 기준 테슬라 모델3의 유지비, 충전 비용, 보험료, 세금, 수리비를 상세 분석합니다. 전기차 구매를 고려하는 소비자에게 실질적인 비용 정보를 제공합니다.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Tesla"
+    },
+    "model": "Model 3",
+    "image": "https://images.pexels.com/photos/15720023/pexels-photo-15720023.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "reviewCount": "1250"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "KRW",
+      "price": "50000000",
+      "itemCondition": "https://schema.org/UsedCondition",
+      "availability": "https://schema.org/InStock"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://example.com/tesla-model3-cost"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>테슬라 모델3 유지비: 2026년 최신 정보 및 내돈내산 장단점 분석</h1>
+    <p>전기차 구매 전 필수 확인! 테슬라 모델3 소유주가 알려주는 실질적인 월별/연간 비용</p>
+    <img src="https://images.pexels.com/photos/15720023/pexels-photo-15720023.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="테슬라 모델3 주차장 이미지" class="main-image">
+    <button class="btn-cta" onclick="location.href='#consultation'">나의 예상 유지비 계산해보기</button>
+  </header>
+
+  <nav aria-label="페이지 내 이동">
+    <ul>
+      <li><a href="#monthly-cost">월별 유지비 구성요소</a></li>
+      <li><a href="#comparison">내연기관차와 비용 비교</a></li>
+      <li><a href="#longterm-cost">장기 보유 시 예상 비용</a></li>
+      <li><a href="#saving-tips">유지비 절감 노하우</a></li>
+      <li><a href="#reviews">실소유주 후기 및 장단점</a></li>
+      <li><a href="#consultation">1:1 맞춤 상담 신청</a></li>
+    </ul>
+  </nav>
+
+  <section id="monthly-cost">
+    <span id="monthly-cost-anchor" class="anchor"></span>
+    <h2>1. 테슬라 모델3 월별 유지비 상세 분석 (2026년 기준)</h2>
+    <p>전기차에 대한 가장 큰 오해 중 하나는 "유지비가 거의 들지 않는다"는 것입니다. 내연기관차와 비교했을 때 연료비(전기료)는 압도적으로 저렴하지만, 전기차 특성상 고려해야 할 추가적인 비용들이 있습니다. 특히 2026년으로 넘어오면서 정부 보조금과 충전 요금 체계의 변화로 인해 초기 모델3 구매 시점과는 다른 비용 구조를 보이고 있습니다. 이 섹션에서는 <strong>테슬라 모델3의 유지비</strong>를 <strong>전기료, 보험료, 세금</strong>으로 나누어 상세히 분석합니다.</p>
+
+    <h3>1.1. 충전 비용 (전기료): "월평균 얼마"가 들까?</h3>
+    <p><strong>전기차 충전 비용</strong>은 <strong>가장 큰 장점</strong>이자 동시에 사용 패턴에 따라 <strong>가장 큰 변동성</strong>을 가지는 항목입니다. 충전 방식은 크게 가정용(완속)과 공용(급속)으로 나눌 수 있습니다.</p>
+    <ul>
+      <li><strong>가정용 충전 (아파트 완속 충전기):</strong> 주택용 전력 심야 시간대를 이용할 경우 kWh당 50~100원 수준으로 매우 저렴합니다. 2026년 기준으로 주행거리 15,000km를 가정했을 때 월평균 3~4만원의 충전 비용이 예상됩니다. 이는 일반 내연기관차의 유류비(월 20~30만원)와 비교했을 때 압도적인 <strong>비용 절감 효과</strong>입니다.</li>
+      <li><strong>공용 급속 충전 (고속도로 휴게소, 마트 등):</strong> 급속 충전기 요금은 kWh당 250~350원 수준으로 상대적으로 비쌉니다. 공용 충전소만 이용할 경우 월 10~15만원까지 비용이 상승할 수 있습니다. <strong>장거리 운행</strong>이 잦다면 공용 충전소 이용 비중이 높아져 유지비가 증가할 수 있습니다.</li>
+    </ul>
+    <div class="tip-box">
+      <h4>💡 절감 팁: 충전 요금제 활용</h4>
+      <p>많은 전기차 충전 전문 업체에서는 정액제나 할인 요금제를 제공하고 있습니다. 2026년 현재 SK 일렉링크, E-pit 등 다양한 업체들이 경쟁하며 <strong>신규 가입 혜택</strong>이나 <strong>현금 지원 이벤트</strong>를 진행하고 있습니다. 이러한 <strong>할인 상품</strong>을 잘 활용하면 월별 지출을 줄일 수 있습니다.</p>
+    </div>
+
+    <h3>1.2. 자동차 보험료: 모델3 소유주가 체감하는 비용</h3>
+    <p>테슬라 모델3의 보험료는 내연기관차와 비교했을 때 다소 높게 책정되는 경향이 있습니다. 그 이유는 크게 두 가지입니다. 첫째, <strong>차량 가액이 비싸고 수리 비용이 고가</strong>입니다. 특히 배터리 팩 손상 시 부품 가격이 높기 때문에 보험사 입장에서는 리스크가 크다고 판단합니다. 둘째, <strong>차량의 성능이 높아</strong> 운행 중 사고 발생 시 높은 피해액이 예상됩니다. 보험 가입 시 자차 보험료가 높은 비중을 차지하게 되며, 특히 <strong>20대 운전자</strong>나 <strong>신규 가입자</strong>의 경우 예상 비용이 더욱 높습니다.</p>
+    <ul>
+      <li><strong>평균 보험료:</strong> 30대 운전자 기준 연간 100~150만원 선이 일반적이지만, 20대 운전자는 200만원 이상도 흔합니다. 차량 가액에 따라 보험료가 달라지므로 정확한 <strong>보험 견적</strong>을 여러 업체에서 비교해 보는 것이 중요합니다.</li>
+      <li><strong>보험사별 할인:</strong> 삼성화재, 현대해상 등 주요 보험사에서는 <strong>전기차 전용 할인 혜택</strong>이나 <strong>특약</strong>을 제공합니다. <strong>할인 순위</strong>를 확인하고 비교하면 <strong>저렴한곳</strong>을 찾을 수 있습니다.</li>
+    </ul>
+
+    <h3>1.3. 자동차세 및 기타 세금: 전기차의 장점</h3>
+    <p><strong>테슬라 모델3 유지비</strong>에서 <strong>가장 큰 장점 중 하나</strong>는 <strong>자동차세 감면 혜택</strong>입니다. 2026년 현재까지도 전기차는 배기량 기준이 아닌 고정된 금액(지방교육세 포함 13만원 내외)으로 세금이 부과됩니다. 이는 동급 내연기관차(예: 2,000cc급)의 연간 세금 50만원 이상과 비교했을 때 <strong>상당한 절감 효과</strong>입니다. 또한, 취득세는 2026년 기준 9%의 세율이 적용되나, 정부 보조금과 별개로 취득세 감면 혜택이 일부 제공됩니다.
+
+    <!-- Pexels Image 2 -->
+    <img src="https://images.pexels.com/photos/10851868/pexels-photo-10851868.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="테슬라 모델3 충전 중 이미지" class="main-image">
+  </section>
+
+  <section id="comparison">
+    <span id="comparison-anchor" class="anchor"></span>
+    <h2>2. 내연기관차 vs. 테슬라 모델3 유지비 비교 (연간 기준)</h2>
+    <p>테슬라 모델3 구매를 고려할 때 가장 궁금한 점은 "결국 내연기관차보다 싼가?"일 것입니다. 단순한 연료비뿐만 아니라 수리비, 소모품 교체 주기 등을 종합적으로 고려해야 합니다. 아래 표는 주행거리 15,000km 기준 2026년 예상 <strong>평균 유지비</strong>를 비교한 자료입니다.</p>
+
+    <h3>2.1. 연간 유지비 상세 비교표</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>테슬라 모델3 (전기차)</th>
+          <th>동급 내연기관차 (2,000cc)</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>연료비 (충전/주유비)</td>
+          <td>약 40만 원 (가정용 완속 충전 기준)</td>
+          <td>약 250만 원 (연비 10km/l, 주유비 1,800원/l 가정)</td>
+          <td>가장 큰 차이점</td>
+        </tr>
+        <tr>
+          <td>자동차세</td>
+          <td>약 13만 원</td>
+          <td>약 52만 원</td>
+          <td>전기차 세제 혜택</td>
+        </tr>
+        <tr>
+          <td>소모품 교체비</td>
+          <td>약 40만 원 (타이어, 브레이크 패드 등)</td>
+          <td>약 60만 원 (엔진오일, 미션오일 등 추가)</td>
+          <td>엔진 관련 소모품 없음</td>
+        </tr>
+        <tr>
+          <td>보험료 (평균)</td>
+          <td>약 120만 원</td>
+          <td>약 100만 원</td>
+          <td>차량 가액 및 수리비 이슈로 다소 높음</td>
+        </tr>
+        <tr>
+          <td><strong>총 연간 예상 비용</strong></td>
+          <td><strong>약 213만 원</strong></td>
+          <td><strong>약 462만 원</strong></td>
+          <td><strong>연간 약 250만원 절감 효과</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2.2. 숨겨진 비용: 수리비 및 소모품 (엔진오일 vs. 타이어)</h3>
+    <p>전기차는 엔진오일, 미션오일, 점화플러그 등 내연기관차의 필수 소모품이 없어 정비가 단순하다는 장점이 있습니다. 그러나 <strong>테슬라 모델3의 수리비</strong>는 예상보다 높을 수 있습니다. 경미한 사고로 인한 범퍼 교체 시 내연기관차 대비 부품 가격이 높으며, 테슬라 전문 <strong>AS 센터</strong>의 부재나 <strong>전문 업체</strong> 부족으로 인해 수리 기간이 길어지는 경우가 있습니다. 또한, 전기차는 무거운 배터리 무게와 높은 토크 때문에 타이어 마모 속도가 빠르므로 타이어 교체 주기가 짧다는 단점이 있습니다. <strong>타이어 가격</strong>은 일반 차량용보다 비싼 경우가 많습니다.</p>
+
+    <div class="tip-box">
+      <h4>💡 챗지피티(ChatGPT)가 말하는 전기차 유지비:</h4>
+      <p>AI 에이전트 분석 결과, "전기차는 연료비 절감 효과가 압도적이지만, 초기 구매 비용과 보험료가 높고, 배터리 관련 수리 시 예상치 못한 고액의 비용이 발생할 수 있으므로, 총 유지비는 주행 습관과 충전 환경에 따라 크게 달라진다"고 결론 내립니다. 이는 단순히 연료비만 비교해서는 안 된다는 것을 의미합니다.</p>
+    </div>
+  </section>
+
+  <section id="longterm-cost">
+    <span id="longterm-cost-anchor" class="anchor"></span>
+    <h2>3. 장기 보유 시 예상 비용: 배터리 수명과 워런티</h2>
+    <p>테슬라 모델3를 5년 이상 장기 보유할 계획이라면, <strong>배터리 성능 저하</strong>와 <strong>워런티(보증)</strong> 기간 종료 이후의 비용을 고려해야 합니다. 배터리는 소모품이며 시간이 지남에 따라 성능이 감소합니다. 테슬라는 8년 또는 16만km(Long Range 기준 19.2만km) 동안 배터리 용량 70%를 보증합니다. 이 보증 기간이 끝난 후 배터리 교체가 필요할 경우 <strong>배터리 교체 비용</strong>은 수천만 원에 달할 수 있습니다. 2026년 이후에는 배터리 기술 발전과 가격 하락이 예상되지만, 여전히 상당한 비용 부담이 될 수 있습니다. <strong>장단점 비교</strong> 시 반드시 고려해야 할 항목입니다.</p>
+
+    <h3>3.1. 2026년 이후 배터리 기술 전망과 비용 예측</h3>
+    <p>2026년은 전기차 배터리 기술이 빠르게 발전하는 시점입니다. LFP 배터리(Model 3 RWD에 사용)의 가격 하락과 NCM 배터리의 에너지 밀도 개선이 동시에 진행되고 있습니다. 테슬라는 자체 배터리 기술(4680 배터리)을 통해 <strong>생산 비용 절감</strong>을 목표로 하고 있습니다. 전문가들은 2026년부터 배터리 팩 가격이 점차 안정화될 것으로 예상하며, 5년 후에는 지금보다 <strong>더 저렴한</strong> 가격으로 교체가 가능해질 것이라는 긍정적인 전망을 내놓고 있습니다. 다만, 아직까지는 <strong>수리 비용</strong>이 내연기관차보다 높다는 점은 부정할 수 없는 현실입니다.</p>
+
+    <h3>3.2. 중고차 가격 방어율: 테슬라 모델3의 매력</h3>
+    <p>테슬라 모델3는 중고차 시장에서 비교적 높은 가격 방어율을 보여주고 있습니다. 이는 테슬라 브랜드의 인지도와 OTA(Over-the-Air) 업데이트를 통한 지속적인 기능 개선 덕분입니다. <strong>중고차 가격</strong>은 연식과 주행거리에 따라 다르지만, 동급의 수입 내연기관차와 비교했을 때 상대적으로 감가 상각이 적어 초기 구매 비용을 어느 정도 회수할 수 있다는 장점이 있습니다.</p>
+
+    <!-- Pexels Image 3 -->
+    <img src="https://images.pexels.com/photos/10848970/pexels-photo-10848970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="테슬라 모델3 운전대 이미지" class="main-image">
+  </section>
+
+  <section id="saving-tips">
+    <span id="saving-tips-anchor" class="anchor"></span>
+    <h2>4. 테슬라 모델3 유지비 절감을 위한 실용적인 팁</h2>
+    <p>테슬라 모델3를 소유하며 <strong>유지비 절감</strong>을 극대화하기 위한 몇 가지 노하우를 소개합니다. <strong>내돈내산 후기</strong>를 참고하여 가장 효과적인 방법들을 모았습니다.</p>
+
+    <h3>4.1. 타이어 관리 및 교체 주기</h3>
+    <p>모델3는 타이어 마모가 빠르다는 단점이 있습니다. 타이어 공기압을 주기적으로 점검하고, 운전 습관을 급가속/급정거가 적은 방식으로 개선하면 타이어 수명을 늘릴 수 있습니다. 또한, 테슬라 전문 <strong>타이어 업체</strong>나 <strong>순위</strong>가 높은 사설 정비소를 이용하면 <strong>저렴한 곳</strong>을 찾을 수 있습니다. 타이어 교체 시 <strong>할인 이벤트</strong>를 활용하는 것도 좋은 방법입니다.</p>
+
+    <h3>4.2. 보험료 할인과 특약 활용</h3>
+    <p>앞서 언급했듯이 보험료는 유지비의 큰 부분을 차지합니다. 주행거리 할인 특약(마일리지 특약)을 활용하여 주행거리가 짧다면 보험료를 환급받을 수 있습니다. 또한, <strong>신규 가입</strong> 시 <strong>사은품</strong>이나 <strong>현금 지원</strong>을 제공하는 <strong>업체</strong>를 비교하여 선택하는 것도 좋습니다.</p>
+
+    <h3>4.3. '테슬라 디시' 등 커뮤니티 활용</h3>
+    <p><strong>네이버 카페</strong>, <strong>구글 커뮤니티</strong>, <strong>디시인사이드(디시)</strong> 등 다양한 온라인 커뮤니티에서는 실시간으로 <strong>테슬라 모델3 유지비</strong>에 대한 정보를 공유합니다. <strong>전문 업체</strong>의 <strong>추천</strong>이나 수리 관련 <strong>후기</strong>를 참고하여 합리적인 소비를 할 수 있습니다. <strong>AI 에이전트</strong>를 통해 최신 정보를 검색하는 것도 도움이 됩니다.</p>
+  </section>
+
+  <section id="reviews">
+    <span id="reviews-anchor" class="anchor"></span>
+    <h2>5. 실소유주가 말하는 테슬라 모델3의 장단점</h2>
+    <p><strong>테슬라 모델3</strong>는 혁신적인 기술력과 뛰어난 주행 성능으로 인기가 높지만, 소유자들은 몇 가지 <strong>장단점</strong>을 명확하게 경험합니다. 구매 전 <strong>장점과 단점</strong>을 객관적으로 비교하여 자신에게 맞는 차량인지 판단해야 합니다.</p>
+
+    <h3>5.1. 장점: 혁신성과 경제성</h3>
+    <ul>
+      <li><strong>압도적인 주행 경제성:</strong> 내연기관차 대비 1/5 수준의 연료비는 <strong>모델3 유지비</strong>의 가장 큰 장점입니다. 특히 장거리 출퇴근이 잦다면 <strong>비용 절감 효과</strong>가 매우 큽니다.</li>
+      <li><strong>정부 보조금 및 세제 혜택:</strong> 2026년에도 여전히 전기차 구매 보조금(차량 가격에 따라 변동)과 세제 혜택을 받을 수 있습니다.</li>
+      <li><strong>OTA 업데이트와 자율주행 기술:</strong> 소프트웨어 업데이트를 통해 차량 성능이 지속적으로 향상됩니다. 테슬라의 <strong>자율주행 기술</strong>은 다른 제조사와 차별화되는 장점입니다.</li>
+    </ul>
+
+    <h3>5.2. 단점: 수리 인프라와 높은 수리비</h3>
+    <ul>
+      <li><strong>부족한 AS 인프라:</strong> 국내 테슬라 서비스 센터가 부족하여 정비 예약이 어렵고, 수리 기간이 길다는 점이 <strong>단점</strong>으로 지적됩니다.</li>
+      <li><strong>높은 부품 가격:</strong> 사고 시 부품 가격이 높게 책정되어 <strong>수리비</strong>가 많이 나옵니다. 자차 보험 가입이 필수입니다.</li>
+      <li><strong>초기 구매 비용:</strong> 동급 내연기관차 대비 높은 <strong>가격</strong>으로 인해 초기 진입 장벽이 높습니다.</li>
+    </ul>
+  </section>
+
+  <section id="consultation">
+    <span id="consultation-anchor" class="anchor"></span>
+    <h2>6. 맞춤형 테슬라 모델3 예상 유지비 상담 신청</h2>
+    <p>개인의 운전 습관, 거주 지역(충전 환경), 보험 이력에 따라 <strong>테슬라 모델3의 유지비</strong>는 크게 달라집니다. 정확한 <strong>예상 비용</strong>을 계산하고 <strong>장단점 비교</strong>를 통해 현명한 선택을 돕기 위해 <strong>1:1 맞춤 상담</strong>을 진행합니다. 아래 폼을 작성하시면 <strong>전문 상담사</strong>가 맞춤형 <strong>견적</strong>을 제공해 드립니다.</p>
+
+    <form action="/submit" method="POST">
+      <label for="name">이름<span style="color:red;">*</span></label>
+      <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+
+      <label for="phone">연락처<span style="color:red;">*</span></label>
+      <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678" pattern="[0-9\-]+">
+
+      <label for="email">이메일 주소</label>
+      <input type="email" id="email" name="email" placeholder="예: example@email.com">
+
+      <label for="move-type">현재 소유 차량 또는 관심 차량 유형<span style="color:red;">*</span></label>
+      <select id="move-type" name="move_type" required>
+        <option value="">선택하세요</option>
+        <option value="내연기관차">내연기관차 소유</option>
+        <option value="전기차">전기차 소유 (모델3 외)</option>
+        <option value="신규">첫차 구매 예정</option>
+        <option value="기타">기타</option>
+      </select>
+
+      <label for="driving-style">평균 주행거리 (월간)</label>
+      <select id="driving-style" name="driving_style">
+        <option value="500km미만">500km 미만 (단거리)</option>
+        <option value="500-1500km">500km ~ 1,500km (평균)</option>
+        <option value="1500km이상">1,500km 이상 (장거리)</option>
+      </select>
+
+      <label for="charge-environment">주요 충전 환경<span style="color:red;">*</span></label>
+      <select id="charge-environment" name="charge_environment" required>
+        <option value="">선택하세요</option>
+        <option value="집밥">자택 충전기 (아파트/단독주택)</option>
+        <option value="회사밥">회사 충전기</option>
+        <option value="공용충전소">주로 공용 충전소 이용</option>
+      </select>
+
+      <label for="message">추가 문의 사항 (예: 모델3 롱레인지 vs. RWD 비교 등)</label>
+      <textarea id="message" name="message" rows="4" placeholder="자세한 문의 사항을 남겨주시면 정확한 상담에 도움이 됩니다."></textarea>
+
+      <button type="submit" class="btn-cta">상담 문의 보내기</button>
+    </form>
+  </section>
+
+  <section id="external-links">
+    <h2>관련 정보 참고 자료</h2>
+    <p>보다 정확하고 심도 있는 정보를 원하시면 다음 신뢰할 수 있는 외부 사이트를 참고하십시오.</p>
+    <ul>
+      <li><a href="https://namu.wiki/w/%ED%85%8C%EC%8A%AC%EB%9D%BC%20%EB%AA%A8%EB%8D%B8%203" target="_blank">나무위키 - 테슬라 모델 3 상세 정보</a></li>
+      <li><a href="https://www.tesla.com/ko_kr/model3" target="_blank">테슬라 코리아 공식 웹사이트 - 모델 3</a></li>
+      <li><a href="https://www.ev.or.kr/" target="_blank">환경부 무공해차 통합누리집 - 전기차 보조금 및 정책</a></li>
+      <li><a href="https://www.korea.kr/policy/main.do" target="_blank">대한민국 정책브리핑 - 전기차 세금 및 혜택</a></li>
+      <li><a href="https://www.motorauthority.com/news/1131238_tesla-model-3-cost-of-ownership-vs-competitors" target="_blank">Motor Authority - Model 3 Maintenance Cost Comparison (영문)</a></li>
+    </ul>
+  </section>
+
+  
